@@ -1,3 +1,9 @@
+# example usage to get vertices of rooms (important for genetic algorithm input and final rendering)
+# rooms = generate_bsp_dungeon(30, 30, approx_rooms=10, rng_seed=42)[0] ## note we're taking [0] to get rooms only
+# rooms is a list of rooms as lists of 4 vertices each
+# e.g. [[(x1,y1),(x2,y1),(x2,y2),(x1,y2)], ...]
+# so rooms[0] is the first room, rooms[0][0] is the first vertex of the first room
+
 import random
 
 class Leaf:
