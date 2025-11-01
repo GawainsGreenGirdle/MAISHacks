@@ -41,3 +41,13 @@ I. Geometric Transforms
 		2. out = im.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
 		3. out = im.transpose(Image.Transpose.ROTATE_90) #rotates the image counterclockwise.
 			a. Transpose.ROTATE_180 and Transpose.ROTATE_270
+II. Reading Images
+	A. You can pass the filename as an argument to Image.open(). You can use a context manager:
+	with open("hopper.ppm", "rp") as fp:
+		im = Image.open(fp)
+	B. You can read from a url. 
+		from PIL import Image
+		from urllib.request import urlopen
+		
+		url = "https://python-pillow.github.io/assets/images/pillow-logo.png"
+		img = Image.open(urlopen(url))
