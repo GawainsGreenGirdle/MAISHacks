@@ -153,7 +153,7 @@ def run_ga(bsp_rooms, POPULATION=50, GENERATIONS=50, ELITISM=0.1):
 
 #example call
 if __name__ == "__main__":
-    from bsp_generator import generate_bsp_dungeon
+    from src.BSPDungeonGeneration import generate_bsp_dungeon
     MAP_W, MAP_H, ROOMS = 30, 30, 6
     rooms, corridors, root = generate_bsp_dungeon(MAP_W, MAP_H, ROOMS, rng_seed=42)
     best_layout = run_ga(rooms)
