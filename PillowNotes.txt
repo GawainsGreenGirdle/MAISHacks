@@ -1,0 +1,43 @@
+#from PIL import Image
+#creates an image from a link
+im = Image.open("Tokens/IMAGENAME.png")
+
+#prints image information
+print(im.format, im.size, im.mode)
+
+#im.show() displays an image.
+
+#save() saves a file. Ex. im.save(outfile, png)
+
+#a region is defined by a 4-tuple, where coordinates are
+#(left, upper, right, lower). Ex. box = (0, 0, 64, 64)
+#the upper left corner is (0,0), the bottom right (64,64)
+
+#im.paste(region,box), where region is an image (ex. region = im.crop((0,0,64,64))) and box is a 4 tuple (ex. (0,0,64,64)). The size of the region must match the area it is pasted exactly.
+
+Images can be transposed with region.transpose(Image.Transpose.Rotate_180).
+
+You can merge images into a wider image. The following is a section of code from the tutorial documentation.
+
+def merge(im1: Image.Image, im2: Image.Image) -> Image.Image:
+	w = im1.size[0] + im2.size[0]
+	h = max(im1.size[1], im2.size[1])
+	im = Image.new("RGBA", (w,h))
+	
+	im.paste(im1)
+	im.paste(im2, (im1.size[0], 0))
+	
+	return im.
+
+Images can be pasted on each other with transparency. The value 255 indicates that it is opaque, and 0 is transparent.
+
+
+I. Geometric Transforms
+	A. Simple transforms
+		1. out = im.resize((128,128))
+		2. out = im.rotate(45) #degrees counter-clockwise
+	B. Transpose
+		1. out = im.transpose(Image.Transpose.FLIP_LEFT_RIGHT) #flips the image along the vertical axis
+		2. out = im.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
+		3. out = im.transpose(Image.Transpose.ROTATE_90) #rotates the image counterclockwise.
+			a. Transpose.ROTATE_180 and Transpose.ROTATE_270
