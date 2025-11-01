@@ -1,0 +1,23 @@
+The task I have been assigned is to create a visual dungeon out of a input Dictionary. 
+A Dictionary in Python is a set of key, value pairs. A dictionary that might be input to my task could look like:
+
+dungeonDictionary = {
+	"Room1": [[0,0], [0,1], [1,1], [0,1]]
+	"Room2": [[..],[..],[..],[..]]
+	"Zombie": [0.5, 0.5]
+}
+
+This dictionary has to be converted into a visual dungeon, and perhaps fed into another AI model which helps generate items and images in the map.
+
+Note that popular tabletop games use 80 pixels per square. Furthermore, walls through a square make movement difficult and are largely on edges for gaming reasons. CREATURES should always be put in the center of their square. Objects should likewise.
+
+I need to have a list of all the possible png images that can be displayed by this program.
+
+The following is a map of the objects that can be displayed:
+Theme		Rooms		Creatures	Objects		Walls		Floors
+|Castle		|Bedroom	|Horse		|Suit of Armor	|Stone		|Wood
+|		|Throne Room	|Knight		|Church Pew	|Window		|Stone
+|Temple		|Chapel		|Priest		|		|		|
+
+I need to specify all of the items and their size for the genetic algorithm.
+Once I have done that, I need some way of displaying them using python.
