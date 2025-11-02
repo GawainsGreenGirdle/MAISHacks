@@ -104,13 +104,46 @@ def make_individual(bsp_rooms):
                 individual[room_name][creature] = pos
     return individual
 
-def fitness(individual):
+def fitness(individual, bsp_rooms):
     score = 0
     # penalty for overlaps
     for room_name, items in individual.items():
         positions = list(items.values())
         if len(positions) != len(set(positions)):
             score -= 1
+    
+    # penalty for constraint violations
+    for i, bsp_room in enumerate(bsp_rooms):
+        x1, y1, x2, y2 = room_bounds(bsp_room)
+        room_row = rooms_data[i] if i < len(rooms_data) else {"Room": f"Room{i}"}
+        room_name = room_row.get("Room", room_row.get("Rooms", f"Room{i}"))
+        
+        placed = individual.get(room_name, {})
+        
+        # Check wall-adjacent objects
+        wall_tiles = set(
+            [(i, j) for i in range(x1, x2) for j in [y1, y2 - 1]] + 
+            [(i, j) for i in [x1, x2 - 1] for j in range(y1, y2)]
+        )
+        
+        for obj, pos in placed.items():
+            # Check Corner constraints
+            if obj in room_row.get("Corner", []):
+                corners = {(x1, y1), (x1, y2 - 1), (x2 - 1, y1), (x2 - 1, y2 - 1)}
+                if pos not in corners:
+                    score -= 0.5
+            
+            # Check WallAdjacent constraints
+            if obj in room_row.get("WallAdjacent", []):
+                if pos not in wall_tiles:
+                    score -= 2
+            
+            # Check CenterAxis constraints
+            if obj in room_row.get("CenterAxis", []):
+                cx = (x1 + x2) // 2
+                cy = (y1 + y2) // 2
+                if pos[0] != cx and pos[1] != cy:
+                    score -= 0.5
     # penalize mutual exclusive violations
     for i, room_row in enumerate(rooms_data):
         room_name = room_row.get("Room", room_row.get("Rooms", f"Room{i}"))
@@ -162,10 +195,10 @@ def crossover(parent1, parent2):
     return child
 
 # GA loop
-def run_ga(bsp_rooms, POPULATION=100, GENERATIONS=100, ELITISM=0.1):
+def run_ga(bsp_rooms, POPULATION=150, GENERATIONS=200, ELITISM=0.15):
     population = [make_individual(bsp_rooms) for _ in range(POPULATION)]
     for gen in range(GENERATIONS):
-        population = sorted(population, key=fitness, reverse=True)
+        population = sorted(population, key=lambda ind: fitness(ind, bsp_rooms), reverse=True)
         next_pop = population[:max(1, int(POPULATION * ELITISM))]
         while len(next_pop) < POPULATION:
             p1, p2 = random.choices(population[:POPULATION // 2], k=2)
@@ -173,7 +206,7 @@ def run_ga(bsp_rooms, POPULATION=100, GENERATIONS=100, ELITISM=0.1):
             child = mutate(child, bsp_rooms)
             next_pop.append(child)
         population = next_pop
-    return max(population, key=fitness)
+    return max(population, key=lambda ind: fitness(ind, bsp_rooms))
 
 # example usage
 if __name__ == "__main__":
