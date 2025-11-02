@@ -22,8 +22,12 @@ Create the room walls on the background by running:
 walls(img, matrix, rooms)
 
 
-Create the corridor walls on the background by running:
+Create the corridor walls and floors on the background by running:
 corridors(img, matrix, corridors)
+
+
+Create room floors on the background by running:
+addFloors(img, rooms)
 
 
 Collect your dataset of items in the form of a dictionary with an interior dictionary.
