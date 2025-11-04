@@ -11,7 +11,7 @@ def background() -> PILImage.Image:
   im = PILImage.new("RGBA", (w,h))
 
   #uses url from github page to render blankTile.
-  url = "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Blank.png"
+  url = "https://raw.githubusercontent.com/NoahTillier/MAISHacks/main/Tokens/Blank.png"
   blankTile = PILImage.open(urlopen(url))
 
   #iterates from 0 to 32 (exclusive) to generate a 30X30 map with a border of 1
@@ -47,7 +47,7 @@ def add(im1: PILImage.Image, im2: PILImage.Image, matrix: np.array, x, y):
     matrix[int(y), int(x)] = 1
 
 def walls(im1: PILImage.Image, matrix: np.array, listOfRooms: List[int]):
-  url = "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Wall.png"
+  url = "https://raw.githubusercontent.com/NoahTillier/MAISHacks/main/Tokens/Wall.png"
   wallTile = PILImage.open(urlopen(url))
   wallTileT = wallTile.transpose(PILImage.Transpose.ROTATE_90)
   for room in listOfRooms:
@@ -92,8 +92,8 @@ def corridorCleaner(listOfCorridors, listOfRooms):
       i+=1
 
 def corridors(im1: PILImage.Image, matrix: np.array, listOfCorridors):
-  url = "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Wall.png"
-  url2= "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/FloorTile.png"
+  url = "https://raw.githubusercontent.com/NoahTillier/MAISHacks/main/Tokens/Wall.png"
+  url2= "https://raw.githubusercontent.com/NoahTillier/MAISHacks/main/Tokens/FloorTile.png"
   wallTile = PILImage.open(urlopen(url))
   wallTileT = wallTile.transpose(PILImage.Transpose.ROTATE_90)
   floorTile = PILImage.open(urlopen(url2))
@@ -112,7 +112,7 @@ def corridors(im1: PILImage.Image, matrix: np.array, listOfCorridors):
       add(im1, wallTileT, matrix, float(corridor[2])-12/80,corridor[1]+j)
 
 def placeItem(bg: PILImage.Image, matrix, dictionary):
-  urls={"Armor": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Armor.png", "Bed": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Bed.png", "Candle": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Candle.png","Chandelier": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Chandelier.png","Oven": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Oven.png","Painting": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Painting.png","Pillar": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Pillar.png","Pot": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Pot.png","Table": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Table.png","Throne": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Throne.png","Toilet": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Toilet.png","Window": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Window.png"}
+  urls={"Armor": "https://raw.githubusercontent.com/NoahTillier/MAISHacks/main/Tokens/Armor.png", "Bed": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Bed.png", "Candle": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Candle.png","Chandelier": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Chandelier.png","Oven": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Oven.png","Painting": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Painting.png","Pillar": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Pillar.png","Pot": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Pot.png","Table": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Table.png","Throne": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Throne.png","Toilet": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Toilet.png","Window": "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/Window.png"}
   for key, innerDictionary in dictionary.items():
     for keyTwo, (x,y) in innerDictionary.items():
       for item, url in urls.items():
@@ -145,7 +145,7 @@ def placeItem(bg: PILImage.Image, matrix, dictionary):
           break
 
 def addFloors(bg: PILImage.Image, listOfRooms):
-    url= "https://raw.githubusercontent.com/GawainsGreenGirdle/MAISHacks/main/Tokens/FloorTile.png"
+    url= "https://raw.githubusercontent.com/NoahTillier/MAISHacks/main/Tokens/FloorTile.png"
     floorTile = PILImage.open(urlopen(url))
 
     for room in listOfRooms:
